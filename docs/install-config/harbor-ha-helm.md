@@ -12,7 +12,7 @@ You can deploy Harbor on Kubernetes via helm to make it highly available. In thi
 - High available ingress controller (Harbor does not manage the external endpoint)
 - High available PostgreSQL database (Harbor does not handle the deployment of HA of database)
 - High available Redis (Harbor does not handle the deployment of HA of Redis)
-- PVC that can be shared across nodes or external object storage
+- A PVC provisioner running in your cluster, which can be shared across nodes or external object storage
 
 ## Architecture
 
@@ -63,16 +63,24 @@ Configure the followings items in `values.yaml`, you can also set them as parame
 
 ## Installation
 
-Install the Harbor helm chart with a release name `my-release`:  
+After unzipping the helm chart, cd to it:
+
+```bash
+cd harbor
+```
+
+Then, install the Harbor helm chart with a release name `my-release`:  
 
 Helm 2:
 
 ```bash
-helm install --name my-release .
+kubectl create ns my-harbor
+helm install -n my-harbor --name my-release .
 ```
 
 Helm 3:
 
 ```bash
-helm install my-release .
+kubectl create ns my-harbor
+helm install -n my-harbor my-release .
 ```
